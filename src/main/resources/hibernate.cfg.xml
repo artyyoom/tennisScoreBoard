@@ -8,14 +8,11 @@
         <property name="connection.url">jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1</property>
         <property name="connection.username">sa</property>
         <property name="connection.password"></property>
-
         <property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
-
         <property name="show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
-
         <property name="hbm2ddl.auto">create</property>
 
-        <!--        <mapping class="com.tennis.entity.Player"/>-->
+        <mapping class="com.tennis.entity.Player"/>
     </session-factory>
 </hibernate-configuration>

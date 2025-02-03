@@ -1,5 +1,6 @@
 package com.tennis;
 
+import com.tennis.entity.Player;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -12,7 +13,14 @@ public class HibernateRunner {
 
         try (SessionFactory sessionFactory = configuration.buildSessionFactory();
              Session session = sessionFactory.openSession()) {
-            System.out.println("ok");
+            session.beginTransaction();
+
+            Player player = Player.builder()
+                    .name("arttt")
+                    .build();
+            session.persist(player);
+
+            session.getTransaction().commit();
         }
     }
 }
