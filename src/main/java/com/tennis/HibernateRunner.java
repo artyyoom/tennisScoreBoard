@@ -1,6 +1,7 @@
 package com.tennis;
 
-import com.tennis.entity.Player;
+import com.tennis.model.Match;
+import com.tennis.model.Player;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -15,10 +16,22 @@ public class HibernateRunner {
              Session session = sessionFactory.openSession()) {
             session.beginTransaction();
 
-            Player player = Player.builder()
-                    .name("arttt")
+            Player player1 = Player.builder()
+                    .name("arttt1")
                     .build();
-            session.persist(player);
+//            Player player2 = Player.builder()
+//                    .name("arttt2")
+//                    .build();
+//
+//            session.persist(player1);
+//            session.persist(player2);
+//
+//            Match match = Match.builder()
+//                    .Player1(player1)
+//                    .Player2(player2)
+//                    .Winner(player1)
+//                    .build();
+//            session.persist(match);
 
             session.getTransaction().commit();
         }

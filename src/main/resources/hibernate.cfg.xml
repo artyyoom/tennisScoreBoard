@@ -13,6 +13,7 @@
         <property name="hibernate.format_sql">true</property>
         <property name="hbm2ddl.auto">create</property>
 
-        <mapping class="com.tennis.entity.Player"/>
+        <mapping class="com.tennis.model.Player"/>
+        <mapping class="com.tennis.model.Match"/>
     </session-factory>
 </hibernate-configuration>
