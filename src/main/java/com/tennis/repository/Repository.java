@@ -38,11 +38,13 @@ public class Repository {
         return playerId;
     }
 
-    public void savePlayer(Player player) {
+    public Long savePlayer(Player player) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.persist(player);
+            Long id = player.getId();
             session.getTransaction().commit();
+            return id;
         }
     }
 }

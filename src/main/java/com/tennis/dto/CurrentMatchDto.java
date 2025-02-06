@@ -1,13 +1,17 @@
 package com.tennis.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.tennis.model.Player;
+import com.tennis.model.Score;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class CurrentMatchDto {
-    private Long idPlayer1;
-    private Long idPlayer2;
-    private int scorePlayer1;
-    private int scorePlayer2;
+    private final Player firstPlayerId;
+    private final Player secondPlayerId;
+    private Score scoreFirstPlayer;
+    private Score scoreSecondPlayer;
 }

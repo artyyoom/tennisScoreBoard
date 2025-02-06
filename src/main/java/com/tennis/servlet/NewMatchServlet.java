@@ -2,9 +2,8 @@ package com.tennis.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tennis.dto.CurrentMatchDto;
-import com.tennis.model.CurrentMatch;
+import com.tennis.model.CurrentMatchStorage;
 import com.tennis.service.Service;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -29,15 +28,15 @@ public class NewMatchServlet extends HttpServlet {
         service.savePlayer(player1);
         service.savePlayer(player2);
 
+        //TODO переделать save, чтобы оно возвращало Player
         Long idPlayer1 = service.getPlayerIdByName(player1);
         Long idPlayer2 = service.getPlayerIdByName(player2);
 
-        CurrentMatchDto currentMatchDto = new CurrentMatchDto(idPlayer1, idPlayer2, 0, 0);
-        UUID uuid = UUID.randomUUID();
+        CurrentMatchDto currentMatchDto = new CurrentMatchDto(idPlayer1, idPlayer2);
+        UUID matchId = UUID.randomUUID();
 
-        CurrentMatch.addCurrentMatch(uuid, currentMatchDto);
+        CurrentMatchStorage.addCurrentMatch(matchId, currentMatchDto);
 
-//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("match-score.jsp");
-//        requestDispatcher.forward(req, resp);
+        resp.sendRedirect(req.getContextPath() + "/match-score?uuid=" + matchId);
     }
 }

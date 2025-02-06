@@ -1,6 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
 <html lang="en">
     <head>
         <title>Welcome to tennis!</title>
@@ -8,5 +7,6 @@
     </head>
     <body>
         <h2>счет текущего матча</h2>
+        <p>игрок 1 ${currentMatch.getCurrencyMatch()}</p>
     </body>
 </html>

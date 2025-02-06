@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class CurrentMatch {
+public class CurrentMatchStorage {
 
     private static final Map<UUID, CurrentMatchDto> currentMatchMap = new HashMap<>();
 
