@@ -1,4 +1,4 @@
-package com.tennis.model;
+package com.tennis.service;
 
 import com.tennis.dto.CurrentMatchDto;
 

@@ -1,7 +1,8 @@
 package com.tennis.servlet;
 
 import com.tennis.dto.CurrentMatchDto;
-import com.tennis.model.CurrentMatchStorage;
+import com.tennis.service.CurrentMatchStorage;
+import com.tennis.service.ScoreCalculatorService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -22,13 +23,24 @@ public class MatchScoreServlet extends HttpServlet {
 
         CurrentMatchDto currentMatchDto = CurrentMatchStorage.getCurrentMatch(uuid);
 
-        req.setAttribute("uuid", uuid);
         req.setAttribute("currentMatch", currentMatchDto);
         req.getRequestDispatcher("match-score.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String uuidParameter = req.getParameter("uuid");
+        String parameterWinnerId = req.getParameter("winnerId");
+        //TODO проверить uuid
+        UUID uuid = UUID.fromString(uuidParameter);
+        //TODO проверить winnerId
+        Long winnerId = Long.valueOf(parameterWinnerId);
 
+        CurrentMatchDto currentMatch = CurrentMatchStorage.getCurrentMatch(uuid);
+        ScoreCalculatorService.addPoint(winnerId, currentMatch);
+
+        //TODO Перенаправить
+        req.setAttribute("currentMatch", currentMatch);
+        req.getRequestDispatcher("match-score.jsp").forward(req, resp);
     }
 }

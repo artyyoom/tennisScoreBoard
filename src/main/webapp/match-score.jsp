@@ -19,11 +19,21 @@
                     <td>${currentMatch.getSecondScore().getSet()}</td>
                     <td>${currentMatch.getSecondScore().getGame()}</td>
                     <td>${currentMatch.getSecondScore().getPoint()}</td>
+
+                    <form action="match-score?uuid=${currentMatch.getUuid()}" method="post">
+                    
+                        <button type="submit" name="winnerId" value="${currentMatch.getFirstPlayer().getId()}">
+                            First Player Won
+                        </button>
+
+                        <button type="submit" name="winnerId" value="${currentMatch.getSecondPlayer().getId()}">
+                            Second Player Won
+                        </button>
+                    </form>
                 </tr>
             </tbody>
         </table>
 
-        <form action="/match-score?uuid=" + uuid method="post"></form>
 
     </body>
 </html>

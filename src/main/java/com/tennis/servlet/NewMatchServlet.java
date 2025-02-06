@@ -2,7 +2,7 @@ package com.tennis.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tennis.dto.CurrentMatchDto;
-import com.tennis.model.CurrentMatchStorage;
+import com.tennis.service.CurrentMatchStorage;
 import com.tennis.model.Player;
 import com.tennis.model.Score;
 import com.tennis.service.Service;
@@ -30,8 +30,10 @@ public class NewMatchServlet extends HttpServlet {
         Player firstPlayer = service.savePlayer(player1);
         Player secondPlayer = service.savePlayer(player2);
 
-        CurrentMatchDto currentMatchDto = new CurrentMatchDto(firstPlayer, secondPlayer, new Score(), new Score());
         UUID matchId = UUID.randomUUID();
+
+        CurrentMatchDto currentMatchDto = new CurrentMatchDto(matchId, firstPlayer, secondPlayer, new Score(), new Score());
+
 
         CurrentMatchStorage.addCurrentMatch(matchId, currentMatchDto);
 
