@@ -23,12 +23,12 @@ public class Service {
         Player player1 = Player.builder()
                 .name(reqPlayer)
                 .build();
-        Long playerId = repository.savePlayer(player1);
-        player1.setId(playerId);
+        repository.savePlayer(player1);
+//        player1.setId(playerId);
         return player1;
     }
 
-    public Long getPlayerIdByName(String playerName) {
-        return repository.getPlayerIdByName(playerName);
-    }
+//    public Long getPlayerIdByName(String playerName) {
+//        return repository.getPlayerIdByName(playerName);
+//    }
 }

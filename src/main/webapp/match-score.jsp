@@ -2,11 +2,28 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Welcome to tennis!</title>
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
-        <h2>счет текущего матча</h2>
-        <p>игрок 1 ${currentMatch.getCurrencyMatch()}</p>
+        <table>
+            <tbody>
+                <tr>
+                    <td>${currentMatch.getFirstPlayer().getName()}</td>
+                    <td>${currentMatch.getFirstScore().getSet()}</td>
+                    <td>${currentMatch.getFirstScore().getGame()}</td>
+                    <td>${currentMatch.getFirstScore().getPoint()}</td>
+                    <td>${currentMatch.getSecondPlayer().getName()}</td>
+                    <td>${currentMatch.getSecondScore().getSet()}</td>
+                    <td>${currentMatch.getSecondScore().getGame()}</td>
+                    <td>${currentMatch.getSecondScore().getPoint()}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <form action="/match-score?uuid=" + uuid method="post"></form>
+
     </body>
 </html>
