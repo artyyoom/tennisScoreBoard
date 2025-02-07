@@ -23,4 +23,6 @@ public class Score {
     public void delPoints() {
         point = 0;
     }
+
+    public void delGames() {game = 0;}
 }
