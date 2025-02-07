@@ -19,4 +19,8 @@ public class Score {
     public void addPoint() {
         point++;
     }
+
+    public void delPoints() {
+        point = 0;
+    }
 }

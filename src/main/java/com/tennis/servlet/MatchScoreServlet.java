@@ -37,9 +37,8 @@ public class MatchScoreServlet extends HttpServlet {
         Long winnerId = Long.valueOf(parameterWinnerId);
 
         CurrentMatchDto currentMatch = CurrentMatchStorage.getCurrentMatch(uuid);
-        ScoreCalculatorService.addPoint(winnerId, currentMatch);
+        ScoreCalculatorService.updateScore(winnerId, currentMatch);
 
-        //TODO Перенаправить
         req.setAttribute("currentMatch", currentMatch);
         req.getRequestDispatcher("match-score.jsp").forward(req, resp);
     }
