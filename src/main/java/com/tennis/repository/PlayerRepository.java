@@ -1,27 +1,35 @@
 package com.tennis.repository;
 
-import com.tennis.model.Match;
 import com.tennis.model.Player;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class Repository {
+public class PlayerRepository {
 
-    private static Repository instance;
-    private SessionFactory sessionFactory;
+    private static PlayerRepository instance;
+    private final SessionFactory sessionFactory;
 
-    private Repository() {
+    private PlayerRepository() {
         Configuration configuration = new Configuration();
         configuration.configure();
         this.sessionFactory = configuration.buildSessionFactory();
     }
 
-    public static Repository getInstance() {
+    public static PlayerRepository getInstance() {
         if (instance == null) {
-            instance = new Repository();
+            instance = new PlayerRepository();
         }
         return instance;
+    }
+
+    public Player getPlayerById(Long id) {
+        try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            Player player = session.get(Player.class, id);
+            session.getTransaction().commit();
+            return player;
+        }
     }
 
     public Long getPlayerIdByName(String playerName) {
@@ -42,7 +50,6 @@ public class Repository {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.persist(player);
-//            Long id = player.getId();
             session.getTransaction().commit();
         }
     }

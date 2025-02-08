@@ -5,7 +5,7 @@ import com.tennis.dto.CurrentMatchDto;
 import com.tennis.service.CurrentMatchStorage;
 import com.tennis.model.Player;
 import com.tennis.model.Score;
-import com.tennis.service.Service;
+import com.tennis.service.PlayerService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,7 +19,7 @@ import java.util.UUID;
 public class NewMatchServlet extends HttpServlet {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
-    Service service = Service.getInstance();
+    PlayerService playerService = PlayerService.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,15 +27,14 @@ public class NewMatchServlet extends HttpServlet {
         String player1 = req.getParameter("player1");
         String player2 = req.getParameter("player2");
 
-        Player firstPlayer = service.savePlayer(player1);
-        Player secondPlayer = service.savePlayer(player2);
+        Player firstPlayer = playerService.savePlayer(player1);
+        Player secondPlayer = playerService.savePlayer(player2);
 
         UUID matchId = UUID.randomUUID();
 
-        CurrentMatchDto currentMatchDto = new CurrentMatchDto(matchId, firstPlayer, secondPlayer, new Score(), new Score());
+        CurrentMatchDto currentMatch = new CurrentMatchDto(matchId, firstPlayer, secondPlayer, new Score(), new Score());
 
-
-        CurrentMatchStorage.addCurrentMatch(matchId, currentMatchDto);
+        CurrentMatchStorage.addCurrentMatch(matchId, currentMatch);
 
         resp.sendRedirect(req.getContextPath() + "/match-score?uuid=" + matchId);
     }
