@@ -51,8 +51,9 @@ public class MatchScoreServlet extends HttpServlet {
             req.setAttribute("currentMatch", currentMatch);
             req.getRequestDispatcher("final-score.jsp").forward(req, resp);
         }
-
-        req.setAttribute("currentMatch", currentMatch);
-        req.getRequestDispatcher("match-score.jsp").forward(req, resp);
+        else {
+            req.setAttribute("currentMatch", currentMatch);
+            req.getRequestDispatcher("match-score.jsp").forward(req, resp);
+        }
     }
 }

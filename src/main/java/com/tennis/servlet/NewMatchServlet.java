@@ -24,8 +24,8 @@ public class NewMatchServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //TODO validate
-        String player1 = req.getParameter("player1");
-        String player2 = req.getParameter("player2");
+        String player1 = req.getParameter("playerOne");
+        String player2 = req.getParameter("playerTwo");
 
         Player firstPlayer = playerService.savePlayer(player1);
         Player secondPlayer = playerService.savePlayer(player2);
