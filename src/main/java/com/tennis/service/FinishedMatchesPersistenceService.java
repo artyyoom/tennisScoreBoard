@@ -11,16 +11,18 @@ public class FinishedMatchesPersistenceService {
 
     MatchService matchService = MatchService.getInstance();
 
-    public void finishGame(UUID uuid, Long winnerId) {
+    public Match finishGame(UUID uuid, Long winnerId) {
         CurrentMatchDto currentMatch = CurrentMatchStorage.getCurrentMatch(uuid);
 
         Player firstPlayer = currentMatch.getFirstPlayer();
         Player secondPlayer = currentMatch.getSecondPlayer();
         Player winner = defineTheWinner(winnerId, firstPlayer, secondPlayer);
 
-        matchService.saveMatch(firstPlayer, secondPlayer, winner);
+        Match match = matchService.saveMatch(firstPlayer, secondPlayer, winner);
 
         CurrentMatchStorage.delCurrentMatch(uuid);
+
+        return match;
     }
 
     private Player defineTheWinner(Long winnerId, Player player1, Player player2) {

@@ -30,12 +30,12 @@ public class NewMatchServlet extends HttpServlet {
         Player firstPlayer = playerService.savePlayer(player1);
         Player secondPlayer = playerService.savePlayer(player2);
 
-        UUID matchId = UUID.randomUUID();
+        UUID currentMatchId = UUID.randomUUID();
 
-        CurrentMatchDto currentMatch = new CurrentMatchDto(matchId, firstPlayer, secondPlayer, new Score(), new Score());
+        CurrentMatchDto currentMatch = new CurrentMatchDto(currentMatchId, firstPlayer, secondPlayer, new Score(), new Score());
 
-        CurrentMatchStorage.addCurrentMatch(matchId, currentMatch);
+        CurrentMatchStorage.addCurrentMatch(currentMatchId, currentMatch);
 
-        resp.sendRedirect(req.getContextPath() + "/match-score?uuid=" + matchId);
+        resp.sendRedirect(req.getContextPath() + "/match-score?uuid=" + currentMatchId);
     }
 }

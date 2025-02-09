@@ -54,7 +54,9 @@
                     <td class="table-text">${currentMatch.getFirstScore().getPoint()}</td>
                     <td class="table-text">
                         <div class="score-btn">
-                            <button type="submit" name="winnerId" value="${currentMatch.getFirstPlayer().getId()}"></button>
+                            <form action="match-score?uuid=${currentMatch.getUuid()}" method="post">
+                                <button class="score-btn" type="submit" name="winnerId" value="${currentMatch.getFirstPlayer().getId()}">Score</button>
+                            </form>
                         </div>
                     </td>
                 </tr>
@@ -65,7 +67,9 @@
                     <td class="table-text">${currentMatch.getSecondScore().getPoint()}</td>
                     <td class="table-text">
                         <div class="score-btn">
-                            <button type="submit" name="winnerId" value="${currentMatch.getSecondPlayer().getId()}"></button>
+                            <form action="match-score?uuid=${currentMatch.getUuid()}" method="post">
+                                <button class="score-btn" type="submit" name="winnerId" value="${currentMatch.getSecondPlayer().getId()}">Score</button>
+                            </form>
                         </div>
                     </td>
                 </tr>

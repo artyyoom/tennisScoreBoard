@@ -3,6 +3,7 @@ package com.tennis.service;
 import com.tennis.model.Match;
 import com.tennis.model.Player;
 import com.tennis.repository.MatchRepository;
+import org.hibernate.Session;
 
 public class MatchService {
 
@@ -19,12 +20,13 @@ public class MatchService {
 
     MatchRepository matchRepository = MatchRepository.getInstance();
 
-    public void saveMatch(Player firstPlayer, Player secondPlayer, Player winner) {
+    public Match saveMatch(Player firstPlayer, Player secondPlayer, Player winner) {
         Match match = Match.builder()
                 .Player1(firstPlayer)
                 .Player2(secondPlayer)
                 .Winner(winner)
                 .build();
         matchRepository.saveMatch(match);
+        return match;
     }
 }
