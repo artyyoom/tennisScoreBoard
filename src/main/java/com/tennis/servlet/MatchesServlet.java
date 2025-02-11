@@ -49,6 +49,10 @@ public class MatchesServlet extends HttpServlet {
             matchesForPage = filteredMatches.subList(startIndex, endIndex);
         } else {
             matchesForPage = List.of();
+            //TODO сделать переход на страницу с надписью что матчей нет
         }
+
+        req.setAttribute("matches", matchesForPage);
+        req.getRequestDispatcher("matches.jsp").forward(req, resp);
     }
 }

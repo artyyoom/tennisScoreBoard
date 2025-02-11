@@ -5,6 +5,9 @@ import com.tennis.model.Player;
 import com.tennis.repository.MatchRepository;
 import org.hibernate.Session;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MatchService {
 
     private static MatchService instance;
@@ -28,5 +31,19 @@ public class MatchService {
                 .build();
         matchRepository.saveMatch(match);
         return match;
+    }
+
+    public List<Match> getAllMatches() {
+        return matchRepository.getMatches();
+    }
+
+    public List<Match> filterMatchesByPlayer(List<Match> allMatches, String playerName) {
+        List<Match> filteredMatches = new ArrayList<>();
+        for (Match match : allMatches) {
+            if (match.getPlayer1().getName().equals(playerName) || match.getPlayer2().getName().equals(playerName)) {
+                filteredMatches.add(match);
+            }
+        }
+        return filteredMatches;
     }
 }

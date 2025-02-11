@@ -5,6 +5,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.util.List;
+
 public class MatchRepository {
 
     private static MatchRepository instance;
@@ -21,6 +23,12 @@ public class MatchRepository {
             instance = new MatchRepository();
         }
         return instance;
+    }
+
+    public List<Match> getMatches() {
+        try(Session session = sessionFactory.openSession()) {
+            return session.createQuery("SELECT m FROM Matches m", Match.class).getResultList();
+        }
     }
 
     public Match getMatchByNames(String firstName, String secondName) {
