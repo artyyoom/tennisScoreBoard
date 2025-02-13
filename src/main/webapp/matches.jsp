@@ -35,12 +35,10 @@
     <div class="container">
         <h1>Matches</h1>
         <div class="input-container">
-            <input class="input-filter" placeholder="Filter by name" type="text" />
-            <div>
-                <a href="#">
-                    <button class="btn-filter">Reset Filter</button>
-                </a>
-            </div>
+            <form class="input-container" action="matches?filter_by_player_name=${filter_by_player_name}" method="get">
+                <input class="input-filter" placeholder="Filter by name" type="text" name="filter_by_player_name"/>
+                <button class="btn-filter">Reset Filter</button>
+            </form>
         </div>
 
         <table class="table-matches">
@@ -50,35 +48,12 @@
                 <th>Winner</th>
             </tr>
             <c:forEach items="${matches}" var="match">
-                ${match.getPlayer1().getName()}
-                ${match.getPlayer2().getName()}
-                ${match.getWinner().getName()}
+                <tr>
+                    <td>${match.getPlayer1().getName()}</td>
+                    <td>${match.getPlayer2().getName()}</td>
+                    <td>${match.getWinner().getName()}</td>
+                </tr>
             </c:forEach>
-            <tr>
-                <td>Rafael Nadal</td>
-                <td>Roger Federer</td>
-                <td><span class="winner-name-td">Rafael Nadal</span></td>
-            </tr>
-            <tr>
-                <td>Rafael Nadal</td>
-                <td>Roger Federer</td>
-                <td><span class="winner-name-td">Roger Federer</span></td>
-            </tr>
-            <tr>
-                <td>Rafael Nadal</td>
-                <td>Roger Federer</td>
-                <td><span class="winner-name-td">Rafael Nadal</span></td>
-            </tr>
-            <tr>
-                <td>Rafael Nadal</td>
-                <td>Roger Federer</td>
-                <td><span class="winner-name-td">Roger Federer</span></td>
-            </tr>
-            <tr>
-                <td>Rafael Nadal</td>
-                <td>Roger Federer</td>
-                <td><span class="winner-name-td">Rafael Nadal</span></td>
-            </tr>
         </table>
 
         <div class="pagination">

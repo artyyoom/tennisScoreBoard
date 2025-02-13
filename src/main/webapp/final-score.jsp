@@ -46,7 +46,7 @@
         </table>
     </div>
     <div class="form-container center">
-        <form action="matches.jsp" type="submit">
+        <form action="matches" method="get">
             <input class="form-button" type="submit" value="View matches">
         </form>
     </div>

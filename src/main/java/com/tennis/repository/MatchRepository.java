@@ -27,7 +27,7 @@ public class MatchRepository {
 
     public List<Match> getMatches() {
         try(Session session = sessionFactory.openSession()) {
-            return session.createQuery("SELECT m FROM Matches m", Match.class).getResultList();
+            return session.createQuery("FROM Match m", Match.class).getResultList();
         }
     }
 
@@ -35,7 +35,8 @@ public class MatchRepository {
 
         try(Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            Match match = session.createQuery("SELECT * FROM Match m WHERE m.Player1 = :firstName AND m.Player2 = :secondName", Match.class)
+            //TODO скорее всего немного переделать HQL запрос
+            Match match = session.createQuery("SELECT m FROM Match m WHERE m.Player1 = :firstName AND m.Player2 = :secondName", Match.class)
                     .setParameter("firstName", firstName)
                     .setParameter("secondName", secondName)
                     .uniqueResult();
