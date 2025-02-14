@@ -57,11 +57,25 @@
         </table>
 
         <div class="pagination">
-            <a class="prev" href="#"> < </a>
-            <a class="num-page current" href="#">1</a>
-            <a class="num-page" href="#">2</a>
-            <a class="num-page" href="#">3</a>
-            <a class="next" href="#"> > </a>
+
+            <c:if test="${page > 1}">
+                <a class="prev" href="matches?page=${page - 1}">&lt; </a>
+            </c:if>
+
+            <c:forEach var="i" begin="1" end="${totalPages}">
+                <c:choose>
+                  <c:when test="${i == page}">
+                    <a class="num-page current" href="matches?page=${i}">${i}</a>
+                  </c:when>
+                  <c:otherwise>
+                    <a class="num-page" href="matches?page=${i}">${i}</a>
+                  </c:otherwise>
+                </c:choose>
+            </c:forEach>
+
+            <c:if test="${page < totalPages}">
+                <a class="prev" href="matches?page=${page + 1}"> &gt;</a>
+            </c:if>
         </div>
     </div>
 </main>

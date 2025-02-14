@@ -40,18 +40,20 @@ public class MatchesServlet extends HttpServlet {
 
         int pageSize = 3;
         int totalMatches = filteredMatches.size();
-        int totalPages = (int) Math.ceil((double) totalMatches / pageSize);
         int startIndex = (page - 1) * pageSize;
         int endIndex = Math.min(startIndex + pageSize, totalMatches);
+        int totalPages = (int) Math.ceil((double) totalMatches / pageSize);
 
         List<Match> matchesForPage;
-        if (startIndex < totalPages) {
-            matchesForPage = filteredMatches.subList(startIndex, endIndex);
-        } else {
+        if (filteredMatches.isEmpty()) {
             matchesForPage = List.of();
             //TODO сделать переход на страницу с надписью что матчей нет
+        } else {
+            matchesForPage = filteredMatches.subList(startIndex, endIndex);
         }
 
+        req.setAttribute("page", page);
+        req.setAttribute("totalPages", totalPages);
         req.setAttribute("matches", matchesForPage);
         req.getRequestDispatcher("matches.jsp").forward(req, resp);
     }
