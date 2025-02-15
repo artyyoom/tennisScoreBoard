@@ -173,6 +173,10 @@ footer {
     width: 40%;
 }
 
+.form-container {
+    text-align: center;
+}
+
 .label-player {
     display: block;
 }

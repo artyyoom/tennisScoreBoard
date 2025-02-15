@@ -45,12 +45,22 @@ public class MatchesServlet extends HttpServlet {
         int totalPages = (int) Math.ceil((double) totalMatches / pageSize);
 
         List<Match> matchesForPage;
-        if (filteredMatches.isEmpty()) {
-            matchesForPage = List.of();
-            //TODO сделать переход на страницу с надписью что матчей нет
-        } else {
+
+        try {
             matchesForPage = filteredMatches.subList(startIndex, endIndex);
         }
+        catch (IndexOutOfBoundsException e) {
+            req.getRequestDispatcher("matches-not-found.jsp").forward(req, resp);
+            return;
+        }
+
+//        if (filteredMatches.isEmpty()) {
+//            matchesForPage = List.of();
+//            //TODO сделать переход на страницу с надписью что матчей нет
+//            req.getRequestDispatcher("matches-not-found.jsp").forward(req, resp);
+//        } else {
+//            matchesForPage = filteredMatches.subList(startIndex, endIndex);
+//        }
 
         req.setAttribute("page", page);
         req.setAttribute("totalPages", totalPages);
