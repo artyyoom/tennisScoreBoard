@@ -20,10 +20,9 @@ public class MatchScoreServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String uuidParameter = req.getParameter("uuid");
-        //TODO проверить uuid
-        UUID uuid = UUID.fromString(uuidParameter);
-        dataValidator.checkUuid(uuid);
+        String initialUuid = req.getParameter("uuid");
+        dataValidator.checkUuid(initialUuid);
+        UUID uuid = UUID.fromString(initialUuid);
 
         CurrentMatchDto currentMatchDto = CurrentMatchStorage.getCurrentMatch(uuid);
 
@@ -33,12 +32,15 @@ public class MatchScoreServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String uuidParameter = req.getParameter("uuid");
-        String parameterWinnerId = req.getParameter("winnerId");
-        //TODO проверить uuid
-        UUID uuid = UUID.fromString(uuidParameter);
-        //TODO проверить winnerId
-        Long winnerId = Long.valueOf(parameterWinnerId);
+        String initialUuid = req.getParameter("uuid");
+        String initialWinnerId = req.getParameter("winnerId");
+
+        dataValidator.checkUuid(initialUuid);
+        UUID uuid = UUID.fromString(initialUuid);
+
+        dataValidator.checkId(initialWinnerId);
+        Long winnerId = Long.valueOf(initialWinnerId);
+
 
         CurrentMatchDto currentMatch = CurrentMatchStorage.getCurrentMatch(uuid);
         ScoreCalculatorService.updateScore(winnerId, currentMatch);
