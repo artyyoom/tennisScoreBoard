@@ -2,6 +2,7 @@ package com.tennis.servlet;
 
 import com.tennis.model.Match;
 import com.tennis.service.MatchService;
+import com.tennis.util.DataValidator;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,22 +15,26 @@ import java.util.List;
 @WebServlet("/matches")
 public class MatchesServlet extends HttpServlet {
 
+    DataValidator dataValidator = new DataValidator();
     MatchService matchService = MatchService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int page = 1;
 
-        //TODO сделать отдельный метод для проверки
-        String reqPage = req.getParameter("page");
-        if (reqPage != null) {
-            page = Integer.parseInt(reqPage);
+        String initialPage = req.getParameter("page");
+        if (initialPage != null) {
+            dataValidator.checkPage(initialPage);
+            page = Integer.parseInt(initialPage);
         }
 
         List<Match> allMatches = matchService.getAllMatches();
         List<Match> filteredMatches;
 
         String playerName = req.getParameter("filter_by_player_name");
+
+//        matchService.
+
         //TODO сделать отдельный метод для проверки
         if (playerName == null) {
             filteredMatches = allMatches;

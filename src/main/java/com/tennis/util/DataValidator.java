@@ -39,4 +39,15 @@ public class DataValidator {
             throw new InvalidDataException("This player not found");
         }
     }
+
+    public void checkPage(String initialPage) {
+        try {
+            int page = Integer.parseInt(initialPage);
+            if (page <= 0) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
+            throw new InvalidDataException("Incorrect page entry");
+        }
+    }
 }

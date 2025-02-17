@@ -3,7 +3,6 @@ package com.tennis.service;
 import com.tennis.dto.CurrentMatchDto;
 import com.tennis.model.Match;
 import com.tennis.model.Player;
-import com.tennis.repository.MatchRepository;
 
 import java.util.UUID;
 
