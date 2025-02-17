@@ -32,20 +32,6 @@ public class PlayerRepository {
         }
     }
 
-    public Long getPlayerIdByName(String playerName) {
-
-        Long playerId = null;
-
-        try(Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            playerId = session.createQuery("SELECT p.id FROM Player p WHERE p.name = :name",Long.class)
-                            .setParameter("name", playerName)
-                            .uniqueResult();
-            session.getTransaction().commit();
-        }
-        return playerId;
-    }
-
     public void savePlayer(Player player) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();

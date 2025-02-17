@@ -31,11 +31,14 @@ public class MatchesServlet extends HttpServlet {
 
         String playerName = req.getParameter("filter_by_player_name");
         //TODO сделать отдельный метод для проверки
-        if (playerName != null) {
-            filteredMatches = matchService.filterMatchesByPlayer(allMatches, playerName);
+        if (playerName == null) {
+            filteredMatches = allMatches;
         }
         else {
-            filteredMatches = allMatches;
+            filteredMatches = matchService.filterMatchesByPlayer(allMatches, playerName);
+            if (filteredMatches.isEmpty()) {
+                req.getRequestDispatcher("matches-not-found.jsp").forward(req, resp);
+            }
         }
 
         int pageSize = 3;

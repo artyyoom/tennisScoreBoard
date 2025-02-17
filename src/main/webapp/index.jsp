@@ -24,7 +24,7 @@
         <div>
             <nav class="nav-links">
                 <a class="nav-link" href="index.jsp">Home</a>
-                <a class="nav-link" href="matches.jsp">Matches</a>
+                <a class="nav-link" href="matches">Matches</a>
             </nav>
         </div>
     </section>
@@ -35,7 +35,7 @@
         <p>Manage your tennis matches, record results, and track rankings</p>
         <div class="welcome-image"></div>
         <div class="form-container center">
-            <a class="homepage-action-button" href="new-match">
+            <a class="homepage-action-button" href="new-match.jsp">
                 <button class="btn start-match">
                     Start a new match
                 </button>

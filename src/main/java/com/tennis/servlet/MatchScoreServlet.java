@@ -3,6 +3,7 @@ package com.tennis.servlet;
 import com.tennis.dto.CurrentMatchDto;
 import com.tennis.model.Match;
 import com.tennis.service.*;
+import com.tennis.util.DataValidator;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,11 +16,14 @@ import java.util.UUID;
 @WebServlet("/match-score")
 public class MatchScoreServlet extends HttpServlet {
 
+    DataValidator dataValidator = new DataValidator();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String uuidParameter = req.getParameter("uuid");
         //TODO проверить uuid
         UUID uuid = UUID.fromString(uuidParameter);
+        dataValidator.checkUuid(uuid);
 
         CurrentMatchDto currentMatchDto = CurrentMatchStorage.getCurrentMatch(uuid);
 
@@ -48,8 +52,7 @@ public class MatchScoreServlet extends HttpServlet {
 
             req.setAttribute("match", match);
             req.getRequestDispatcher("final-score.jsp").forward(req, resp);
-        }
-        else {
+        } else {
             req.setAttribute("currentMatch", currentMatch);
             req.getRequestDispatcher("match-score.jsp").forward(req, resp);
         }
