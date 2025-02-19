@@ -1,5 +1,6 @@
 package com.tennis.servlet;
 
+import com.tennis.exception.DataNotFoundException;
 import com.tennis.model.Match;
 import com.tennis.service.MatchService;
 import com.tennis.util.DataValidator;
@@ -28,21 +29,18 @@ public class MatchesServlet extends HttpServlet {
             page = Integer.parseInt(initialPage);
         }
 
+        String playerNameByFilter = req.getParameter("filter_by_player_name");
+
         List<Match> allMatches = matchService.getAllMatches();
         List<Match> filteredMatches;
 
-        String playerName = req.getParameter("filter_by_player_name");
-
-//        matchService.
-
-        //TODO сделать отдельный метод для проверки
-        if (playerName == null) {
+        if (playerNameByFilter == null) {
             filteredMatches = allMatches;
         }
         else {
-            filteredMatches = matchService.filterMatchesByPlayer(allMatches, playerName);
+            filteredMatches = matchService.filterMatchesByPlayer(allMatches, playerNameByFilter);
             if (filteredMatches.isEmpty()) {
-                req.getRequestDispatcher("matches-not-found.jsp").forward(req, resp);
+                throw new DataNotFoundException("Matches not found");
             }
         }
 

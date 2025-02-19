@@ -25,7 +25,6 @@ public class NewMatchServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //TODO validate
         String player1 = req.getParameter("playerOne");
         dataValidator.checkName(player1);
         String player2 = req.getParameter("playerTwo");

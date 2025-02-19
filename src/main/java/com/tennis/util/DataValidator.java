@@ -1,11 +1,8 @@
 package com.tennis.util;
 
 import com.tennis.exception.*;
-import com.tennis.service.CurrentMatchStorage;
 import com.tennis.service.PlayerService;
 import lombok.NoArgsConstructor;
-
-import java.util.UUID;
 
 @NoArgsConstructor
 public class DataValidator {
@@ -13,41 +10,38 @@ public class DataValidator {
     PlayerService playerService = PlayerService.getInstance();
 
     public void checkName(String name) {
-        if (name.isEmpty()) {
-            throw new InvalidDataException("Name is empty");
-        }
-        if (name.length() > 20) {
-            throw new InvalidDataException("Name is too long");
+        //TODO написать во фронтенде критерии имени
+        if (!name.matches("^[A-Za-z0-9_]{1,20}$")) {
+            throw new InvalidDataException("Invalid name");
         }
     }
 
     public void checkUuid(String initialUuid) {
-        UUID uuid = UUID.fromString(initialUuid);
-        if (CurrentMatchStorage.getCurrentMatch(uuid) == null) {
-            throw new InvalidDataException("Current match not found");
+        if (!initialUuid.matches("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")) {
+            throw new InvalidDataException("Invalid uuid");
         }
     }
 
     public void checkId(String initialId) {
-        try {
-            Long winnerId = Long.valueOf(initialId);
-            if (playerService.getPlayer(winnerId) == null) {
-                throw new NumberFormatException();
-            }
-        }
-        catch (NumberFormatException e) {
-            throw new InvalidDataException("This player not found");
+        if (isPositiveNumber(initialId)) {
+            throw new InvalidDataException("Invalid id");
         }
     }
 
     public void checkPage(String initialPage) {
-        try {
-            int page = Integer.parseInt(initialPage);
-            if (page <= 0) {
-                throw new NumberFormatException();
-            }
-        } catch (NumberFormatException e) {
-            throw new InvalidDataException("Incorrect page entry");
+        if (isPositiveNumber(initialPage)) {
+            throw new InvalidDataException("Invalid page");
         }
     }
+
+    private boolean isPositiveNumber(String value) {
+        return !value.matches("\\d+");
+    }
+
+//    private void checkNull(String value) {
+//        if (value == null || value.isEmpty()) {
+//            throw new InvalidDataException("Value is empty");
+//        }
+
+//    }
 }
