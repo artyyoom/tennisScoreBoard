@@ -27,13 +27,13 @@ public class ExceptionFilter extends HttpFilter {
         try{
             super.doFilter(req, res, chain);
         }
-        catch (DataBaseException e){
+        catch (DataBaseException e) {
             writeError(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, res);
         }
-        catch (DataNotFoundException e){
+        catch (DataNotFoundException e) {
             writeError(e, HttpServletResponse.SC_NOT_FOUND, res);
         }
-        catch(InvalidDataException e){
+        catch (InvalidDataException e) {
             writeError(e, HttpServletResponse.SC_BAD_REQUEST, res);
         }
     }

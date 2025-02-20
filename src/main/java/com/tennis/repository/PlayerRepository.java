@@ -1,5 +1,6 @@
 package com.tennis.repository;
 
+import com.tennis.exception.DataBaseException;
 import com.tennis.model.Player;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -29,6 +30,8 @@ public class PlayerRepository {
             Player player = session.get(Player.class, id);
             session.getTransaction().commit();
             return player;
+        } catch (Exception e) {
+            throw new DataBaseException("Problem with saving player");
         }
     }
 
