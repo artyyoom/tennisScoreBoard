@@ -6,6 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.util.Optional;
+
 public class PlayerRepository {
 
     private static PlayerRepository instance;
@@ -31,15 +33,27 @@ public class PlayerRepository {
             session.getTransaction().commit();
             return player;
         } catch (Exception e) {
-            throw new DataBaseException("Problem with saving player");
+            throw new DataBaseException("Problem with getting player");
         }
     }
 
-    public void savePlayer(Player player) {
+    public Player savePlayer(Player player) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.persist(player);
             session.getTransaction().commit();
+            return player;
+        }
+        catch (Exception e) {
+            throw new DataBaseException("Problem with saving player");
+        }
+    }
+
+    public Optional<Player> getPlayerByName(String playerName) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("from Player where name = :name", Player.class)
+                    .setParameter("name", playerName)
+                    .uniqueResultOptional();
         }
     }
 }

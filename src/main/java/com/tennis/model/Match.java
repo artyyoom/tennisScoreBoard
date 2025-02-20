@@ -3,15 +3,15 @@ package com.tennis.model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "matches")
+@Table(name = "Matches")
 public class Match {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
