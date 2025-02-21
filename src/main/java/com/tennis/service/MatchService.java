@@ -1,7 +1,6 @@
 package com.tennis.service;
 
 import com.tennis.dto.MatchesPageDto;
-import com.tennis.exception.DataNotFoundException;
 import com.tennis.model.Match;
 import com.tennis.model.Player;
 import com.tennis.repository.MatchRepository;
@@ -9,6 +8,7 @@ import com.tennis.util.DataValidator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class MatchService {
 
@@ -41,48 +41,46 @@ public class MatchService {
     }
 
 
-    public List<Match> filterMatchesByPlayer(List<Match> allMatches, String playerName) {
+    public Optional<List<Match>> filterMatchesByPlayer(List<Match> allMatches, String playerName) {
         List<Match> filteredMatches = new ArrayList<>();
         for (Match match : allMatches) {
             if (match.getPlayer1().getName().equals(playerName) || match.getPlayer2().getName().equals(playerName)) {
                 filteredMatches.add(match);
             }
         }
-        return filteredMatches;
+        return filteredMatches.isEmpty() ? Optional.empty() : Optional.of(filteredMatches);
     }
 
-    public MatchesPageDto getMatches(String initialPage, String playerNameByFilter) {
+    public Optional<MatchesPageDto> getMatches(String initialPage, String playerNameByFilter) {
         final int pageSize = 3;
         int currentPage = parseInitialPage(initialPage);
-        List<Match> filteredMatches = getFilteredMatches(playerNameByFilter);
-        List<Match> matchesForCurrentPage = getMatchesForPage(pageSize,currentPage, filteredMatches);
+        Optional<List<Match>> filteredMatches = getFilteredMatches(playerNameByFilter);
+        if (filteredMatches.isEmpty()) {
+            return Optional.empty();
+        }
+        List<Match> matchesForCurrentPage = getMatchesForPage(pageSize,currentPage, filteredMatches.get());
+        int totalMatches = filteredMatches.get().size();
 
         //TODO Mapper
-        return new MatchesPageDto(currentPage, calculateTotalPages(pageSize, filteredMatches.size()), matchesForCurrentPage);
+        return Optional.of(new MatchesPageDto(currentPage, calculateTotalPages(pageSize, totalMatches), matchesForCurrentPage));
     }
 
     private int parseInitialPage(String initialPage) {
-        if (initialPage != null) {
+        if (initialPage != null && !initialPage.equals("0")) {
             dataValidator.checkPage(initialPage);
             return Integer.parseInt(initialPage);
         }
         return 1;
     }
 
-    private List<Match> getFilteredMatches(String playerNameByFilter) {
+    private Optional<List<Match>> getFilteredMatches(String playerNameByFilter) {
         List<Match> allMatches = getAllMatches();
 
         if (playerNameByFilter == null || playerNameByFilter.isEmpty()) {
-            return allMatches;
+            return Optional.of(allMatches);
         }
 
-        List<Match> filteredMatches = filterMatchesByPlayer(allMatches, playerNameByFilter);
-
-        if (filteredMatches.isEmpty()) {
-            throw new DataNotFoundException("Matches not found for player: " + playerNameByFilter);
-        }
-
-        return filteredMatches;
+        return filterMatchesByPlayer(allMatches, playerNameByFilter);
     }
 
     private int calculateTotalPages(int pageSize, double totalMatches) {
@@ -95,8 +93,8 @@ public class MatchService {
         try {
             return matches.subList(indexes[0], indexes[1]);
         }
-        catch (IndexOutOfBoundsException e) {
-            throw new DataNotFoundException("Page not found");
+        catch (IllegalArgumentException e) {
+            return null;
         }
     }
 

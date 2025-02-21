@@ -51,9 +51,12 @@ public class PlayerRepository {
 
     public Optional<Player> getPlayerByName(String playerName) {
         try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("from Player where name = :name", Player.class)
+            session.beginTransaction();
+            Optional<Player> player = session.createQuery("from Player where name = :name", Player.class)
                     .setParameter("name", playerName)
                     .uniqueResultOptional();
+            session.getTransaction().commit();
+            return player;
         }
     }
 }

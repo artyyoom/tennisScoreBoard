@@ -11,7 +11,7 @@ public class DataValidator {
 
     public void checkName(String name) {
         //TODO написать во фронтенде критерии имени
-        if (!name.matches("^[A-Za-z0-9_]{1,20}$")) {
+        if (!name.matches("^[A-Za-zа-яА-Я0-9_]{1,20}$")) {
             throw new InvalidDataException("Invalid name");
         }
     }

@@ -24,6 +24,11 @@ public class NewMatchServlet extends HttpServlet {
     DataValidator dataValidator = new DataValidator();
 
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("new-match.jsp").forward(req,resp);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String player1 = req.getParameter("playerOne");
         dataValidator.checkName(player1);

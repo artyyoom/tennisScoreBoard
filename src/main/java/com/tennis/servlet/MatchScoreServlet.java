@@ -51,10 +51,9 @@ public class MatchScoreServlet extends HttpServlet {
         if (firstScore >= 3 || secondScore >= 3) {
             FinishedMatchesPersistenceService finishedMatch = new FinishedMatchesPersistenceService();
             //TODO получать данные не из finishGame
-            finishedMatch.finishGame(uuid, winnerId);
-//            Match match = matchService.get
+            Match match = finishedMatch.finishGame(uuid, winnerId);
 
-//            req.setAttribute("match", match);
+            req.setAttribute("match", match);
             req.getRequestDispatcher("final-score.jsp").forward(req, resp);
         } else {
             req.setAttribute("currentMatch", currentMatch);

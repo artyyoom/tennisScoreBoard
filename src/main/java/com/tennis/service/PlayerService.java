@@ -27,15 +27,12 @@ public class PlayerService {
     public Player savePlayer(String playerName) {
         Optional<Player> existingPlayer = playerRepository.getPlayerByName(playerName);
         if (existingPlayer.isPresent()) {
-            return existingPlayer.get(); // Возвращаем существующего игрока
+            return existingPlayer.get();
         }
-        //TODO проверить на существование
-        Player player = new Player();
-        player.setName(playerName);
+
+        Player player = Player.builder()
+                .name(playerName)
+                .build();
         return playerRepository.savePlayer(player);
     }
-
-//    public Long getPlayerIdByName(String playerName) {
-//        return repository.getPlayerIdByName(playerName);
-//    }
 }

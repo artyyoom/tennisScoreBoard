@@ -1,5 +1,6 @@
 package com.tennis.repository;
 
+import com.tennis.exception.DataBaseException;
 import com.tennis.model.Match;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -27,7 +28,10 @@ public class MatchRepository {
 
     public List<Match> getMatches() {
         try(Session session = sessionFactory.openSession()) {
-            return session.createQuery("FROM Match m", Match.class).getResultList();
+            session.beginTransaction();
+            List<Match> matches = session.createQuery("FROM Match m", Match.class).getResultList();
+            session.getTransaction().commit();
+            return matches;
         }
     }
 
@@ -50,6 +54,9 @@ public class MatchRepository {
             session.beginTransaction();
             session.persist(match);
             session.getTransaction().commit();
+        }
+        catch (Exception e) {
+            throw new DataBaseException("Error with saving match");
         }
     }
 }

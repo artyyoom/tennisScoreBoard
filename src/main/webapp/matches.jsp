@@ -57,25 +57,31 @@
         </table>
 
         <div class="pagination">
+            <c:choose>
+                <c:when test="${matchesIsEmpty == true}">
+                    <h2>matches not found</h2>
+                </c:when>
+                <c:otherwise>
+                    <c:if test="${page > 1}">
+                        <a class="prev" href="matches?page=${page - 1}&filter_by_player_name=${filter_by_player_name}">&lt; </a>
+                    </c:if>
 
-            <c:if test="${page > 1}">
-                <a class="prev" href="matches?page=${page - 1}">&lt; </a>
-            </c:if>
+                    <c:forEach var="i" begin="1" end="${totalPages}">
+                        <c:choose>
+                          <c:when test="${i == page}">
+                            <a class="num-page current" href="matches?page=${i}&filter_by_player_name=${filter_by_player_name}">${i}</a>
+                          </c:when>
+                          <c:otherwise>
+                            <a class="num-page" href="matches?page=${i}&filter_by_player_name=${filter_by_player_name}">${i}</a>
+                          </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
 
-            <c:forEach var="i" begin="1" end="${totalPages}">
-                <c:choose>
-                  <c:when test="${i == page}">
-                    <a class="num-page current" href="matches?page=${i}">${i}</a>
-                  </c:when>
-                  <c:otherwise>
-                    <a class="num-page" href="matches?page=${i}">${i}</a>
-                  </c:otherwise>
-                </c:choose>
-            </c:forEach>
-
-            <c:if test="${page < totalPages}">
-                <a class="prev" href="matches?page=${page + 1}"> &gt;</a>
-            </c:if>
+                    <c:if test="${page < totalPages}">
+                        <a class="prev" href="matches?page=${page + 1}&filter_by_player_name=${filter_by_player_name}"> &gt;</a>
+                    </c:if>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </main>
