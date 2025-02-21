@@ -39,7 +39,6 @@ public class MatchRepository {
 
         try(Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            //TODO скорее всего немного переделать HQL запрос
             Match match = session.createQuery("SELECT m FROM Match m WHERE m.Player1 = :firstName AND m.Player2 = :secondName", Match.class)
                     .setParameter("firstName", firstName)
                     .setParameter("secondName", secondName)

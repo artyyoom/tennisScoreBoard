@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -36,7 +37,9 @@
                 <div class="new-match-image"></div>
                 <div class="form-container center">
                     <form action="new-match" method="post">
-                        <p style="color: red;">Sample error message</p>
+                        <c:if test="${errorMessage != null}">
+                            <p style="color: red;">${errorMessage}</p>
+                        </c:if>
                         <label class="label-player" for="playerOne">Player one</label>
                         <input class="input-player" name="playerOne" placeholder="Name" type="text" required title="Enter a name">
                         <label class="label-player" for="playerTwo">Player two</label>

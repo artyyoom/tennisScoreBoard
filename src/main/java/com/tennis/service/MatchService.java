@@ -44,7 +44,7 @@ public class MatchService {
     public Optional<List<Match>> filterMatchesByPlayer(List<Match> allMatches, String playerName) {
         List<Match> filteredMatches = new ArrayList<>();
         for (Match match : allMatches) {
-            if (match.getPlayer1().getName().equals(playerName) || match.getPlayer2().getName().equals(playerName)) {
+            if (match.getPlayer1().getName().contains(playerName) || match.getPlayer2().getName().contains(playerName)) {
                 filteredMatches.add(match);
             }
         }
@@ -61,7 +61,6 @@ public class MatchService {
         List<Match> matchesForCurrentPage = getMatchesForPage(pageSize,currentPage, filteredMatches.get());
         int totalMatches = filteredMatches.get().size();
 
-        //TODO Mapper
         return Optional.of(new MatchesPageDto(currentPage, calculateTotalPages(pageSize, totalMatches), matchesForCurrentPage));
     }
 

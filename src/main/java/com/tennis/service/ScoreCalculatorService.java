@@ -59,25 +59,20 @@ public class ScoreCalculatorService {
         int secondScore = currentMatch.getSecondScore().getGame();
 
         if (firstScore < 5 && secondScore < 5) {return;}
-        if (firstScore == 6 && secondScore <= 4) {
-            addSet(winnerId, currentMatch);
-        }
-        if (secondScore == 6 && firstScore <= 4) {
-            addSet(winnerId, currentMatch);
-        }
+
+        checkToSet(firstScore, secondScore, winnerId, currentMatch);
+        checkToSet(firstScore, secondScore, winnerId, currentMatch);
+
         if (firstScore >= 5 && secondScore >= 5) {
             int totalPoints = firstScore - secondScore;
             equalSetScore(totalPoints, winnerId, currentMatch);
         }
+    }
 
-//        if (firstScore <= 5 && secondScore <= 5) {return;}
-//        if (firstScore >= 6 && secondScore >= 6) {
-//            int totalPoints = firstScore - secondScore;
-//            equalSetScore(totalPoints, winnerId, currentMatch);
-//        }
-//        if (firstScore == 6 || secondScore == 6) {
-//            addSet(winnerId, currentMatch);
-//        }
+    private static void checkToSet(int firstScore, int secondScore, Long winnerId, CurrentMatchDto currentMatch) {
+        if (firstScore == 6 && secondScore <= 4) {
+            addSet(winnerId, currentMatch);
+        }
     }
 
     private static void equalSetScore(int totalPoints, Long winnerId, CurrentMatchDto currentMatch) {

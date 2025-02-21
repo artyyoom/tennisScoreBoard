@@ -63,22 +63,13 @@
                 </c:when>
                 <c:otherwise>
                     <c:if test="${page > 1}">
-                        <a class="prev" href="matches?page=${page - 1}&filter_by_player_name=${filter_by_player_name}">&lt; </a>
+                        <a class="prev" href="matches?page=${page - 1}&filter_by_player_name=${filter_by_player_name}">&lt;</a>
                     </c:if>
 
-                    <c:forEach var="i" begin="1" end="${totalPages}">
-                        <c:choose>
-                          <c:when test="${i == page}">
-                            <a class="num-page current" href="matches?page=${i}&filter_by_player_name=${filter_by_player_name}">${i}</a>
-                          </c:when>
-                          <c:otherwise>
-                            <a class="num-page" href="matches?page=${i}&filter_by_player_name=${filter_by_player_name}">${i}</a>
-                          </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
+                    <p class="num-page">${page} ... ${totalPages}</p>
 
                     <c:if test="${page < totalPages}">
-                        <a class="prev" href="matches?page=${page + 1}&filter_by_player_name=${filter_by_player_name}"> &gt;</a>
+                        <a class="prev" href="matches?page=${page + 1}&filter_by_player_name=${filter_by_player_name}">&nbsp; &gt;</a>
                     </c:if>
                 </c:otherwise>
             </c:choose>
