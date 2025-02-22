@@ -1,13 +1,10 @@
 package com.tennis.util;
 
 import com.tennis.exception.*;
-import com.tennis.service.PlayerService;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public class DataValidator {
-
-    PlayerService playerService = PlayerService.getInstance();
 
     public void checkNames(String firstName, String secondName) {
         if (firstName.equals(secondName)) {
@@ -44,11 +41,4 @@ public class DataValidator {
     private boolean isPositiveNumber(String value) {
         return !value.matches("\\d+");
     }
-
-//    private void checkNull(String value) {
-//        if (value == null || value.isEmpty()) {
-//            throw new InvalidDataException("Value is empty");
-//        }
-
-//    }
 }

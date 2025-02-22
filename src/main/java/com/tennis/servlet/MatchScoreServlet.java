@@ -17,7 +17,6 @@ import java.util.UUID;
 public class MatchScoreServlet extends HttpServlet {
 
     DataValidator dataValidator = new DataValidator();
-    MatchService matchService = MatchService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -50,7 +49,6 @@ public class MatchScoreServlet extends HttpServlet {
         int secondScore = currentMatch.getSecondScore().getSet();
         if (firstScore >= 3 || secondScore >= 3) {
             FinishedMatchesPersistenceService finishedMatch = new FinishedMatchesPersistenceService();
-            //TODO получать данные не из finishGame
             Match match = finishedMatch.finishGame(uuid, winnerId);
 
             req.setAttribute("match", match);

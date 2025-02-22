@@ -35,19 +35,6 @@ public class MatchRepository {
         }
     }
 
-    public Match getMatchByNames(String firstName, String secondName) {
-
-        try(Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            Match match = session.createQuery("SELECT m FROM Match m WHERE m.Player1 = :firstName AND m.Player2 = :secondName", Match.class)
-                    .setParameter("firstName", firstName)
-                    .setParameter("secondName", secondName)
-                    .uniqueResult();
-            session.getTransaction().commit();
-            return match;
-        }
-    }
-
     public void saveMatch(Match match) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
