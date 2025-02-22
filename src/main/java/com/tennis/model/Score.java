@@ -1,8 +1,10 @@
 package com.tennis.model;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class Score {
     private int set = 0;
     private int game = 0;
