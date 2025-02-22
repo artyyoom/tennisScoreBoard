@@ -67,20 +67,11 @@ public class ScoreCalculatorService {
         }
         if (firstScore >= 5 && secondScore >= 5) {
             int totalPoints = firstScore - secondScore;
-            equalSetScore(totalPoints, winnerId, currentMatch);
+            tiebreak(totalPoints, winnerId, currentMatch);
         }
-
-//        if (firstScore <= 5 && secondScore <= 5) {return;}
-//        if (firstScore >= 6 && secondScore >= 6) {
-//            int totalPoints = firstScore - secondScore;
-//            equalSetScore(totalPoints, winnerId, currentMatch);
-//        }
-//        if (firstScore == 6 || secondScore == 6) {
-//            addSet(winnerId, currentMatch);
-//        }
     }
 
-    private static void equalSetScore(int totalPoints, Long winnerId, CurrentMatchDto currentMatch) {
+    private static void tiebreak(int totalPoints, Long winnerId, CurrentMatchDto currentMatch) {
         if (totalPoints >= 2) {
             addSet(winnerId, currentMatch);
         }

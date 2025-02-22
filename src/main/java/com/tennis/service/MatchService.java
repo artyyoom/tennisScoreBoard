@@ -61,7 +61,6 @@ public class MatchService {
         List<Match> matchesForCurrentPage = getMatchesForPage(pageSize,currentPage, filteredMatches.get());
         int totalMatches = filteredMatches.get().size();
 
-        //TODO Mapper
         return Optional.of(new MatchesPageDto(currentPage, calculateTotalPages(pageSize, totalMatches), matchesForCurrentPage));
     }
 

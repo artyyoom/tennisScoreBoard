@@ -37,11 +37,4 @@ public class DataValidator {
     private boolean isPositiveNumber(String value) {
         return !value.matches("\\d+");
     }
-
-//    private void checkNull(String value) {
-//        if (value == null || value.isEmpty()) {
-//            throw new InvalidDataException("Value is empty");
-//        }
-
-//    }
 }
