@@ -44,7 +44,7 @@ public class MatchService {
     public Optional<List<Match>> filterMatchesByPlayer(List<Match> allMatches, String playerName) {
         List<Match> filteredMatches = new ArrayList<>();
         for (Match match : allMatches) {
-            if (match.getPlayer1().getName().equals(playerName) || match.getPlayer2().getName().equals(playerName)) {
+            if (match.getPlayer1().getName().contains(playerName) || match.getPlayer2().getName().contains(playerName)) {
                 filteredMatches.add(match);
             }
         }

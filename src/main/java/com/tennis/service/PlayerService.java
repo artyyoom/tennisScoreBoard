@@ -20,10 +20,6 @@ public class PlayerService {
 
     PlayerRepository playerRepository = PlayerRepository.getInstance();
 
-    public Player getPlayer(Long id) {
-        return playerRepository.getPlayerById(id);
-    }
-
     public Player savePlayer(String playerName) {
         Optional<Player> existingPlayer = playerRepository.getPlayerByName(playerName);
         if (existingPlayer.isPresent()) {

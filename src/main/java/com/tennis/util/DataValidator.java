@@ -9,9 +9,16 @@ public class DataValidator {
 
     PlayerService playerService = PlayerService.getInstance();
 
+    public void checkNames(String firstName, String secondName) {
+        if (firstName.equals(secondName)) {
+            throw new InvalidDataException("These names are the same");
+        }
+        checkName(firstName);
+        checkName(secondName);
+    }
+
     public void checkName(String name) {
-        //TODO написать во фронтенде критерии имени
-        if (!name.matches("^[A-Za-zа-яА-Я0-9_]{1,20}$")) {
+        if (!name.matches("^[A-Za-zа-яА-Я0-9_]{1,15}$")) {
             throw new InvalidDataException("Invalid name");
         }
     }

@@ -2,6 +2,7 @@ package com.tennis.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tennis.dto.CurrentMatchDto;
+import com.tennis.exception.InvalidDataException;
 import com.tennis.service.CurrentMatchStorage;
 import com.tennis.model.Player;
 import com.tennis.model.Score;
@@ -31,19 +32,26 @@ public class NewMatchServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String player1 = req.getParameter("playerOne");
-        dataValidator.checkName(player1);
         String player2 = req.getParameter("playerTwo");
-        dataValidator.checkName(player2);
+        String errorMessage = null;
 
-        Player firstPlayer = playerService.savePlayer(player1);
-        Player secondPlayer = playerService.savePlayer(player2);
+        try {
+            dataValidator.checkNames(player1, player2);
+            Player firstPlayer = playerService.savePlayer(player1);
+            Player secondPlayer = playerService.savePlayer(player2);
 
-        UUID currentMatchId = UUID.randomUUID();
+            UUID currentMatchId = UUID.randomUUID();
 
-        CurrentMatchDto currentMatch = new CurrentMatchDto(currentMatchId, firstPlayer, secondPlayer, new Score(), new Score());
+            CurrentMatchDto currentMatch = new CurrentMatchDto(currentMatchId, firstPlayer, secondPlayer, new Score(), new Score());
 
-        CurrentMatchStorage.addCurrentMatch(currentMatchId, currentMatch);
+            CurrentMatchStorage.addCurrentMatch(currentMatchId, currentMatch);
 
-        resp.sendRedirect(req.getContextPath() + "/match-score?uuid=" + currentMatchId);
+            resp.sendRedirect(req.getContextPath() + "/match-score?uuid=" + currentMatchId);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+            req.setAttribute("errorMessage", errorMessage);
+            req.getRequestDispatcher("new-match.jsp").forward(req, resp);
+        }
+
     }
 }
